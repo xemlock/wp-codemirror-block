@@ -1,4 +1,4 @@
-=== Codemirror Blocks ===
+=== CodeMirror Blocks ===
 Contributors: vickyagravat
 Tags: gutenberg, codemirror, program, code block, php, html ,css, javascript, python, java, jsx, react, snippet, codemirror, hightlight, syntax highlighting, syntaxhighlighting, syntax highlighter, syntaxhighlighter, syntax,
 Requires at least: 4.8
@@ -7,12 +7,12 @@ Stable tag: 4.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Simple plugin that enhance the gutenberg functionality. it is use as highlighter. With no shortcode required.
+CodeMirror Blocks is useful for developers blog, tutorial site where display formatted (highlighted) code of any program. With support of 100+ Language/Mode, with 56 Different Color Themes.
 
 == Description ==
 
-This Plugin is useful for developers blog, tutorial site where to display formatted (highlighted) code of any program.
-It supports 100+ Programming, Scripting, MarkUp Languge.
+CodeMirror Blocks is useful for developers blog, tutorial site where to display formatted (highlighted) code of any program.
+It supports 100+ Programming, Scripting and MarkUp Languge, with 56 Different Themes.
 
 The Code Block is dependent on a [CodeMirror](https://codemirror.net/) library.
 
