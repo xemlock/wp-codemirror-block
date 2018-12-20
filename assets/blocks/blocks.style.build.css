@@ -1,0 +1,36 @@
+/*
+ * Code Blocks
+ */
+
+.code-block {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+.CodeMirror {
+  transition: .3s all ease-in;
+}
+.code-block pre.CodeMirror {
+  padding: 1em;
+  margin: 0;
+}
+
+.CodeMirror svg.loader {
+  position: absolute;
+  top: 42%;
+  left: 42%;
+	max-width: 64px;
+	border-radius: 3px;
+	/* box-shadow: 2px 2px 5px #000; */
+	background: rgba(30, 30, 30, .7);
+	fill: none;
+	stroke: #222;
+	stroke-linecap: round;
+  stroke-width: 8%;
+}
+
+use {
+	stroke: #fff;
+	animation: a 2s linear infinite
+}
+
+@keyframes a { to { stroke-dashoffset: 0px } }
