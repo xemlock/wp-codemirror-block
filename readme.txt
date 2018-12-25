@@ -136,7 +136,7 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 
 == Other Notes ==
 
-**Credits**
+==Credits==
 
 * This Plugin use CodeMirror library to highlight "`Code Blocks`". [CodeMirror](https://codemirror.net/) is an open-source project shared under the [MIT license](https://codemirror.net/LICENSE).
 
