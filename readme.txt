@@ -90,9 +90,9 @@ Install "CodeMirror Blocks" just as you would any other WordPress Plugin.
 Automatically via WordPress Admin Area:
 
 1. Log in to Admin Area of your WordPress website.
-2. Go to "`Plugins`" -> "`Add New`".
+2. Go to `Plugins` -> `Add New`.
 3. Find this plugin and click install.
-4. Activate this plugin through the "`Plugins`" tab.
+4. Activate this plugin through the `Plugins` tab.
 
 Manually via FTP access:
 
@@ -100,7 +100,7 @@ Manually via FTP access:
 2. Unzip the ZIP file.
 3. Upload the unzipped catalog to your website's plugin directory (`/wp-content/plugins/`).
 4. Log in to Admin Area of your WordPress website.
-5. Activate this plugin through the "`Plugins`" tab.
+5. Activate this plugin through the `Plugins` tab.
 
 [More help installing plugins](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins "WordPress Codex: Installing Plugins")
 
@@ -110,25 +110,25 @@ Manually via FTP access:
 No, it is Dependent on Gutenberg to Create Blocks, you have to install and activate Gutenberg, or Update your WordPress to 5.0 with built-in Block Editor.
 
 = Q. How to insert Code Block in Post? =
-A. Adding "`Code Block`" is same as inserting other Blocks.
+A. Adding `Code Block` is same as inserting other Blocks.
 
 1. Log in to Admin Area of your WordPress website.
-2. Go to "`Posts`" -> "`Add New`".
-3. Click The + button. it dispaly all available "`Blocks`" to Insert.
-4. Find or Search "`Code Block`".
-5. Click "`Code Block`" to insert in Post.
+2. Go to `Posts` -> `Add New`.
+3. Click The + button. it dispaly all available `Blocks` to Insert.
+4. Find or Search `Code Block`.
+5. Click `Code Block` to insert in Post.
 
 = Q. How to change Language / Mode of Code Block? =
-A. Just select your "`Language / Mode`" from Select Dropdown.
+A. Just select your `Language / Mode` from Select Dropdown.
 
 = Q. How to change color Theme of Code Block? =
-A. Just select your "`theme`" from Select Dropdown.
+A. Just select your `theme` from Select Dropdown.
 
 = Q. How to enable or disable Line Numbers? =
 A. Just click toogle button to (On/Off) it.
 
 = Q. Does this require any knowledge of HTML or CSS? =
-A. Absolutely not. This plugin can be configured with no knowledge of HTML or CSS, using an easy-to-use Block. But you have to know about code pasted on "`Code Block`", to select proper Language/Mode.
+A. Absolutely not. This plugin can be configured with no knowledge of HTML or CSS, using an easy-to-use Block. But you have to know about code pasted on `Code Block`, to select proper Language/Mode.
 
 = Q. The last WordPress update is preventing me from editing my website that is using this plugin. Why is this? =
 A. This plugin can not cause such problem. More likely, the problem are related to the settings of the website. It could just be a cache, so please try to clear your website's cache (may be you using a caching plugin, or some web service such as the CloudFlare) and then the cache of your web browser. Also please try to re-login to the website, this too can help.
@@ -138,7 +138,7 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 
 ==Credits==
 
-* This Plugin use CodeMirror library to highlight "`Code Blocks`". [CodeMirror](https://codemirror.net/) is an open-source project shared under the [MIT license](https://codemirror.net/LICENSE).
+* This Plugin use CodeMirror library to highlight `Code Blocks`. [CodeMirror](https://codemirror.net/) is an open-source project shared under the [MIT license](https://codemirror.net/LICENSE).
 
 == Changelog ==
 
