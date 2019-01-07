@@ -23,10 +23,10 @@ class Codemirror_Blocks {
     /**
      * @since Codemirror Blocks 1.0.0
      * @access private
-     * @var string codemirror_blocks_version
+     * @var string plugin_version
      *
      */
-    private $codemirror_blocks_version;
+    private $plugin_version;
     /**
      * @since Codemirror Blocks 1.0.0
      * @access private
@@ -81,7 +81,7 @@ class Codemirror_Blocks {
      */
     public function init() {
         $plugin_data = get_file_data(CODEMIRROR_BLOCKS_PLUGIN, array('Version' => 'Version'), false);
-        $codemirror_blocks_version = $plugin_data['Version'];
+        $this->plugin_version = $plugin_data['Version'];
     }
 
     /**
@@ -162,7 +162,7 @@ class Codemirror_Blocks {
      *
      */
     public function admin_enqueue_scripts() {
-
+        $plugin_version = $this->plugin_version;
         wp_enqueue_script( 'codemirror', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/lib/codemirror.js', array(), self::CODEMIRROR_VERSION, true );
 
         wp_enqueue_style( 'codemirror', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/lib/codemirror.css', array(), self::CODEMIRROR_VERSION );
@@ -172,7 +172,7 @@ class Codemirror_Blocks {
 
         wp_enqueue_style( 'codemirror-simplescrollbars', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/addon/scroll/simplescrollbars.css', array(), self::CODEMIRROR_VERSION );
 
-        wp_enqueue_script( 'codemirror-loademode', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/addon/mode/loadmode.js', array(), '1.0.0', true );
+        wp_enqueue_script( 'codemirror-loademode', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/addon/mode/loadmode.js', array(), self::CODEMIRROR_VERSION, true );
 
         wp_add_inline_script(
             'codemirror-loademode',
@@ -180,13 +180,13 @@ class Codemirror_Blocks {
             'before'
         );
 
-        // wp_enqueue_script( 'codemirror-meta', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/mode/meta.js', array(), '1.0.0', true );
+        // wp_enqueue_script( 'codemirror-meta', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/mode/meta.js', array(), '$plugin_version, true );
 
         wp_enqueue_script(
             'codemirror-blocks-editor-init', // Handle.
             plugins_url( '/assets/js/code-editor-init.js',  CODEMIRROR_BLOCKS_PLUGIN ), // Block.build.js: We register the block here. Built with Webpack.
             array( 'codemirror', 'codemirror-loademode' ),  // Dependencies, defined above.
-            filemtime( plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ) . 'assets/js/code-editor-init.js' ), // Version: filemtime — Gets file modification time.
+            $plugin_version,
             true // Enqueue the script in the footer.
         );
 
@@ -194,7 +194,7 @@ class Codemirror_Blocks {
             'codemirror-blocks-blocks', // Handle.
             plugins_url( '/assets/blocks/blocks.build.js',  CODEMIRROR_BLOCKS_PLUGIN ), // Block.build.js: We register the block here. Built with Webpack.
             array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor', 'wp-components',  'wp-compose', 'underscore', 'codemirror-loademode' ),  // Dependencies, defined above.
-            filemtime( plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ) . 'assets/blocks/blocks.build.js' ), // Version: filemtime — Gets file modification time.
+            $plugin_version,
             true // Enqueue the script in the footer.
         );
 
@@ -203,7 +203,7 @@ class Codemirror_Blocks {
             'codemirror-blocks-blocks-editor', // Handle.
             plugins_url( 'assets/blocks/blocks.editor.build.css',  CODEMIRROR_BLOCKS_PLUGIN ), // Block editor CSS.
             array( 'wp-edit-blocks' ), // Dependency to include the CSS after it.
-            filemtime( plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ) . 'assets/blocks/blocks.editor.build.css' ) // Version: filemtime — Gets file modification time.
+            $plugin_version
         );
 
     }
@@ -215,6 +215,7 @@ class Codemirror_Blocks {
      *
      */
     public function wp_enqueue_scripts() {
+        $plugin_version = $this->plugin_version;
 
         wp_enqueue_script( 'codemirror', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/lib/codemirror.js', array(), self::CODEMIRROR_VERSION, true );
 
@@ -224,9 +225,9 @@ class Codemirror_Blocks {
 
         wp_enqueue_style( 'codemirror-simplescrollbars', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/addon/scroll/simplescrollbars.css', array(), self::CODEMIRROR_VERSION );
 
-        wp_enqueue_script( 'codemirror-runmode', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/addon/runmode/runmode.js', array(), '1.0', true );
+        wp_enqueue_script( 'codemirror-runmode', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/addon/runmode/runmode.js', array(), self::CODEMIRROR_VERSION, true );
 
-        wp_enqueue_script( 'codemirror-loademode', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/addon/mode/loadmode.js', array(), '1.0.0', true );
+        wp_enqueue_script( 'codemirror-loademode', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/addon/mode/loadmode.js', array(), self::CODEMIRROR_VERSION, true );
 
         wp_add_inline_script(
             'codemirror-loademode',
@@ -234,13 +235,13 @@ class Codemirror_Blocks {
             'before'
         );
 
-        // wp_enqueue_script( 'codemirror-meta', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/mode/meta.js', array(), '1.0.0', true );
+        // wp_enqueue_script( 'codemirror-meta', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/mode/meta.js', array(), $plugin_version, true );
 
         wp_enqueue_script(
             'codemirror-blocks-editor-init', // Handle.
             plugins_url( '/assets/js/code-editor-init.js',  CODEMIRROR_BLOCKS_PLUGIN ), // Block.build.js: We register the block here. Built with Webpack.
             array( 'codemirror', 'codemirror-loademode' ),  // Dependencies, defined above.
-            filemtime( plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ) . 'assets/js/code-editor-init.js' ), // Version: filemtime — Gets file modification time.
+            $plugin_version,
             true // Enqueue the script in the footer.
         );
 
@@ -250,7 +251,7 @@ class Codemirror_Blocks {
             'after'
         );
 
-        // wp_enqueue_script( 'codemirror-custom', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'assets/js/custom.js', array('codemirror-runmode'), '1.0.0', true);
+        // wp_enqueue_script( 'codemirror-custom', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'assets/js/custom.js', array('codemirror-runmode'), $plugin_version, true);
 
 
         // Styles. only use for editor
@@ -258,7 +259,7 @@ class Codemirror_Blocks {
             'codemirror-blocks-blocks', // Handle.
             plugins_url( 'assets/blocks/blocks.style.build.css',  CODEMIRROR_BLOCKS_PLUGIN ), // Block editor CSS.
             array(), // Dependency to include the CSS after it.
-            filemtime( plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ) . 'assets/blocks/blocks.style.build.css' ) // Version: filemtime — Gets file modification time.
+            $plugin_version
         );
     }
 

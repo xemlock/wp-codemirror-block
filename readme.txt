@@ -142,6 +142,9 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 
 == Changelog ==
 
+= 1.0.2 =
+* Change: minor changes.
+
 = 1.0.1 =
 * Fix: [Rust language](https://wordpress.org/support/topic/rust-language/) issue.
 * Fix: simple mode addon for (Docerfile, factor)
