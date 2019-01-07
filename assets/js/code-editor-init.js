@@ -11,6 +11,8 @@ if ( 'undefined' === typeof window.wpcm.codeEditor ) {
 
 		// set mode url path
 		CodeMirror.modeURL = CODEMIRROR_BLOCK_URL + "mode/%N/%N.js";
+		// set addon url path
+		CodeMirror.addonURL = CODEMIRROR_BLOCK_URL + "addon/%D/%F.js";
 
 		/**
 		 * Default settings for code editor.
@@ -74,12 +76,59 @@ if ( 'undefined' === typeof window.wpcm.codeEditor ) {
 			// console.log(codemirror);
 			codemirror.setOption("mode", instance.settings.codemirror.mime);
 
+			wpcm.autoLoadAddon(instance.codemirror, instance.settings.codemirror.mode);
+
 			wpcm.autoLoadTheme(instance.codemirror, instance.settings.codemirror.theme);
 
 			CodeMirror.autoLoadMode(codemirror, instance.settings.codemirror.mode);
 
 			return instance;
 		};
+
+		wpcm.autoLoadAddon = function (instance, mode) {
+			// console.log(mode);
+			var addon = [];
+
+			if (mode.search('embed') >= 0) {
+				addon.push({
+					dirName: 'mode',
+					fileName: 'multiplex'
+				});
+			}
+			if (mode == 'rust' || mode == 'dockerfile' || mode == 'factor') {
+				addon.push({
+					dirName: 'mode',
+					fileName: 'simple'
+				});
+			}
+			if (mode == 'django' || mode == 'gfm') {
+				addon.push({
+					dirName: 'mode',
+					fileName: 'overlay'
+				});
+
+				CodeMirror.requireMode('htmlmixed', function() {
+					instance.setOption("mode", instance.getOption("mode"));
+					// return;
+				});
+			}
+			if (addon) {
+				for (var i = 0; i < addon.length; i++) {
+					var id = 'wp-codemirror-' + addon[i].dirName + '-' + addon[i].fileName;
+					// console.log(id, addon.length);
+
+					if (document.getElementById(id) != undefined) {
+						continue;
+					}
+					var file = CodeMirror.addonURL.replace(/%D/g, addon[i].dirName).replace(/%F/g, addon[i].fileName);
+					var script = document.createElement("script");
+					script.src = file;
+					script.id = id;
+					var others = document.getElementsByTagName("script")[0];
+					others.parentNode.insertBefore(script, others);
+				}
+			}
+		}
 
 	wpcm.autoLoadTheme = function (instance, theme) {
 			if (theme == 'default') {
@@ -145,6 +194,7 @@ if ( 'undefined' === typeof window.wpcm.codeEditor ) {
 				if (setting.mode !== undefined) {
 					CodeMirror.modeURL = CODEMIRROR_BLOCK_URL + "mode/%N/%N.js";
 
+
 					wpcm.codemirrorInit(id, code, setting);
 					// wpcm.codemirror_from_textarea(block, id, code, setting);
 					// wpcm.runmode(id, code, setting);
@@ -164,6 +214,8 @@ if ( 'undefined' === typeof window.wpcm.codeEditor ) {
 				scrollbarStyle: "simple"
 			});
 			// console.log(editor);
+			wpcm.autoLoadAddon(editor, setting.mode);
+
 			editor.setOption("mode", setting.mime);
 			editor.setOption("theme", setting.theme);
 

@@ -3,7 +3,7 @@
 * Plugin Name:  CodeMirror Blocks
 * Plugin URI:   https://wordpress.org/plugins/wp-codemirror-blocks/
  * Description: This Plug-in provides Code Block. it act as (syntax highlighter) built with CodeMirrror library, it is usefull for developers or tutorials blog to display highlighted code.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      Vicky Agravat
  * Author URI:  https://profiles.wordpress.org/vickyagravat
  * License:     GPL2+
