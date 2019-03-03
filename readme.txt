@@ -136,7 +136,7 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 == Screenshots ==
 
 1. How to Add CodeBlock.
-2. Paste `CODE` and Select apropriate Language to highliht `CODE`.
+2. Paste `CODE` and Select apropriate Language to hightlight `CODE`.
 3. Change Theme from 50+ different themes, with live Preview.
 4. Toggle Line Number with one click.
 
