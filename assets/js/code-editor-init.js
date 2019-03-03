@@ -5,6 +5,9 @@ if ('undefined' === typeof window.wpcm) {
 if ( 'undefined' === typeof window.wpcm.codeEditor ) {
 	window.wpcm.codeEditor = {};
 }
+if ( 'undefined' === typeof window.wpcm.editors ) {
+	window.wpcm.editors = [];
+}
 
 ( function( $, wpcm, CodeMirror ) {
 	'use strict';
@@ -72,6 +75,7 @@ if ( 'undefined' === typeof window.wpcm.codeEditor ) {
 				settings: instanceSettings,
 				codemirror: codemirror
 			};
+			wpcm.editors.push(codemirror);
 
 			// console.log(codemirror);
 			codemirror.setOption("mode", instance.settings.codemirror.mime);

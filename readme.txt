@@ -3,7 +3,7 @@ Contributors: vickyagravat
 Tags: gutenberg, codemirror, program, code block, php, html ,css, javascript, python, java, jsx, react, snippet, codemirror, hightlight, syntax highlighting, syntaxhighlighting, syntax highlighter, syntaxhighlighter, syntax,
 Requires at least: 4.8
 Tested up to: 5.1
-Stable tag: 1.4
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -133,6 +133,12 @@ A. Absolutely not. This plugin can be configured with no knowledge of HTML or CS
 = Q. The last WordPress update is preventing me from editing my website that is using this plugin. Why is this? =
 A. This plugin can not cause such problem. More likely, the problem are related to the settings of the website. It could just be a cache, so please try to clear your website's cache (may be you using a caching plugin, or some web service such as the CloudFlare) and then the cache of your web browser. Also please try to re-login to the website, this too can help.
 
+== Screenshots ==
+
+1. How to Add CodeBlock.
+2. Paste `CODE` and Select apropriate Language to highliht `CODE`.
+3. Change Theme from 50+ different themes, with live Preview.
+4. Toggle Line Number with one click.
 
 == Other Notes ==
 
@@ -141,6 +147,10 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 * This Plugin use CodeMirror library to highlight `Code Blocks`. [CodeMirror](https://codemirror.net/) is an open-source project shared under the [MIT license](https://codemirror.net/LICENSE).
 
 == Changelog ==
+
+= 1.0.3 =
+* Improve: Performance.
+* Add: Some Sugested [Code](https://wordpress.org/support/topic/editors-2/).
 
 = 1.0.2 =
 * Change: minor changes.
