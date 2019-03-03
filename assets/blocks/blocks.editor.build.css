@@ -14,6 +14,7 @@
     max-width: 100%;
     overflow: inherit;
     padding: inherit;
+    padding-left: .5em;
 }
 
 .CodeMirror svg.loader {
