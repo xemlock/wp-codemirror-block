@@ -240,7 +240,7 @@ class Codemirror_Blocks {
         wp_enqueue_script(
             'codemirror-blocks-editor-init', // Handle.
             plugins_url( '/assets/js/code-editor-init.js',  CODEMIRROR_BLOCKS_PLUGIN ), // Block.build.js: We register the block here. Built with Webpack.
-            array( 'codemirror', 'codemirror-loademode' ),  // Dependencies, defined above.
+            array( 'codemirror', 'codemirror-loademode', 'jquery' ),  // Dependencies, defined above.
             $plugin_version,
             true // Enqueue the script in the footer.
         );

@@ -1,5 +1,10 @@
 /* twentyfifteen theme hack */
 /* twentysixteen theme hack */
+.CodeMirror {
+  font-size: .8em;
+  transition: inherit;
+}
+
 .CodeMirror pre.CodeMirror-line {
   border: inherit;
 }

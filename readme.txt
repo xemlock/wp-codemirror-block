@@ -3,7 +3,7 @@ Contributors: vickyagravat
 Tags: gutenberg, codemirror, program, code block, php, html ,css, javascript, python, java, jsx, react, snippet, codemirror, hightlight, syntax highlighting, syntaxhighlighting, syntax highlighter, syntaxhighlighter, syntax,
 Requires at least: 4.8
 Tested up to: 5.1
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -148,6 +148,13 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 
 == Changelog ==
 
+= 1.0.5 =
+* Improve: Performance Improved.
+* Update: Sugested [Code](https://wordpress.org/support/topic/editors-2/#post-11274234).
+
+= 1.0.4 =
+* Change: minor changes.
+
 = 1.0.3 =
 * Improve: Performance.
 * Add: Some Sugested [Code](https://wordpress.org/support/topic/editors-2/).
@@ -162,7 +169,6 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 
 = 1.0 =
 * Created A New Plugin.
-* No change.
 
 == Upgrade Notice ==
 
