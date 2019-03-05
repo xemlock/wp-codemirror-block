@@ -148,6 +148,9 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 
 == Changelog ==
 
+= 1.0.6 =
+* Add: Added 2 Event Listners `wpcm_editor_loaded` and `wpcm_editors_loaded`
+
 = 1.0.5 =
 * Improve: Performance Improved.
 * Update: Sugested [Code](https://wordpress.org/support/topic/editors-2/#post-11274234).

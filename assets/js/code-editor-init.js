@@ -235,7 +235,8 @@ if ('undefined' === typeof window.wpcm.editors) {
 
 		wpcm.editors.push(editor);
 		// this event triggers current editor instance
-		$(document.body).trigger('wpcm_editor_loaded');
+		$(document.body).trigger('wpcm_editor_loaded', [ editor ]);
+
 	}
 
 	wpcm.runmode = function (id, code, setting) {
