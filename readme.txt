@@ -3,7 +3,7 @@ Contributors: vickyagravat
 Tags: gutenberg, codemirror, program, code block, php, html ,css, javascript, python, java, jsx, react, snippet, codemirror, hightlight, syntax highlighting, syntaxhighlighting, syntax highlighter, syntaxhighlighter, syntax,
 Requires at least: 4.8
 Tested up to: 5.1
-Stable tag: 1.0.5
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,7 +136,7 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 == Screenshots ==
 
 1. How to Add CodeBlock.
-2. Paste `CODE` and Select apropriate Language to hightlight `CODE`.
+2. Paste `CODE` and Select apropriate Language to highlight `CODE`.
 3. Change Theme from 50+ different themes, with live Preview.
 4. Toggle Line Number with one click.
 
@@ -147,6 +147,9 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 * This Plugin use CodeMirror library to highlight `Code Blocks`. [CodeMirror](https://codemirror.net/) is an open-source project shared under the [MIT license](https://codemirror.net/LICENSE).
 
 == Changelog ==
+
+= 1.0.7 =
+* Update: Sugested [Code](https://wordpress.org/support/topic/enqueuing-admin-scripts/).
 
 = 1.0.6 =
 * Add: Added 2 Event Listners `wpcm_editor_loaded` and `wpcm_editors_loaded`

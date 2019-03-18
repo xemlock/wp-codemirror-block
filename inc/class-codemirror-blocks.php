@@ -54,7 +54,7 @@ class Codemirror_Blocks {
         add_action( 'plugins_loaded', array($this, 'gutenberg_version_check') );
 
         // enqueue styles and scripts
-        add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
+        add_action('enqueue_block_editor_assets', array($this, 'admin_enqueue_scripts'));
         add_action('wp_enqueue_scripts', array($this, 'wp_enqueue_scripts'));
 
         // Add custom block category
