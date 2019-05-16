@@ -2,7 +2,7 @@
 Contributors: vickyagravat
 Tags: gutenberg, codemirror, program, code block, php, html ,css, javascript, python, java, jsx, react, snippet, codemirror, hightlight, syntax highlighting, syntaxhighlighting, syntax highlighter, syntaxhighlighter, syntax,
 Requires at least: 4.8
-Tested up to: 5.1
+Tested up to: 5.2
 Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
