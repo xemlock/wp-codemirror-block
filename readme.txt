@@ -1,7 +1,8 @@
 === CodeMirror Blocks ===
 Contributors: vickyagravat
-Tags: gutenberg, codemirror, program, code block, php, html ,css, javascript, python, java, jsx, react, snippet, codemirror, hightlight, syntax highlighting, syntaxhighlighting, syntax highlighter, syntaxhighlighter, syntax,
+Tags: gutenberg, codemirror, code block, code highlighter, syntax, php, html, css, javascript, python, java, jsx, react, snippet, hightlight, syntax highlighting, syntaxhighlighter
 Requires at least: 4.8
+Donate link: https://paypal.me/VikeshAgravat
 Tested up to: 5.2
 Stable tag: 1.0.7
 License: GPLv2 or later
@@ -27,8 +28,6 @@ This plugin is just plug and play, no tedious configurations or hacks, just inst
 * Intuitive interface with many settings
 * Cross browser compatible (work smooth in any modern browser)
 * Compatible with all WordPress themes
-* RTL compatible (right to left)
-* Translation ready
 
 
 **Key features include**
@@ -39,9 +38,6 @@ This plugin is just plug and play, no tedious configurations or hacks, just inst
 * 100+ Programming languages (allmost provided languages from CodeMirror)
 * Programming language selection option
 * Loading CodeMirror files on pages only when needed
-* No ads on the settings page
-* Well documented
-* And much, much more!
 
 **A list of supported themes:**
 
