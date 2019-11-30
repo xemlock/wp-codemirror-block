@@ -1,10 +1,10 @@
 === CodeMirror Blocks ===
 Contributors: vickyagravat
-Tags: gutenberg, codemirror, code block, code highlighter, syntax, php, html, css, javascript, python, java, jsx, react, snippet, hightlight, syntax highlighting, syntaxhighlighter
+Tags: codemirror, code block, syntax highlighter, code highlighter, php, html, css, javascript, python, java, jsx, react, snippet, hightlight, syntax highlighting
 Requires at least: 4.8
 Donate link: https://paypal.me/VikeshAgravat
 Tested up to: 5.3
-Stable tag: 1.0.7
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ CodeMirror Blocks is useful for developers blog, tutorial site where display for
 == Description ==
 
 CodeMirror Blocks is useful for developers blog, tutorial site where to display formatted (highlighted) code of any program.
-It supports 100+ Programming, Scripting and MarkUp Languge, with 56 Different Themes.
+It supports 100+ Programming, Scripting and MarkUp Language, with 56 Different Themes.
 
 The Code Block is dependent on a [CodeMirror](https://codemirror.net/) library.
 
@@ -21,21 +21,31 @@ Formated Code Block is like (syntax highlighting feature) that displays source c
 
 This plugin is just plug and play, no tedious configurations or hacks, just install, activate and start using block inserter.
 
+
+**New features include**
+
+* (Updated) Code block is now CodeMirror Block 1.1
+* (New) Option Page for set default options
+* (New) Highlight Active Line (now available on CodeMirror Block 1.1)
+* (New) CodeMirror Block 1.1 now support Block align (Wide Width, Full Width) if your theme Supports.
+* (New) Classic Editor Support (Partial)
+* (New) (Beta) Web editor (Execution of HTML, CSS Javascript block) With CodeMirror Block 1.1
+
 **Features**
 
 * Lightweight and fast
 * Secure code with using clear coding standards
 * Intuitive interface with many settings
 * Cross browser compatible (work smooth in any modern browser)
-* Compatible with all WordPress themes
-
+* Works also on android mobile browser
+* Compatible with all Default WordPress themes (tested with Latest Twenty Twenty)
 
 **Key features include**
 
 * Code syntax highlighting
 * Line number (On/Off) option
 * 56 Themes (all provided themes from CodeMirror)
-* 100+ Programming languages (allmost provided languages from CodeMirror)
+* 100+ Programming languages (all most provided languages from CodeMirror)
 * Programming language selection option
 * Loading CodeMirror files on pages only when needed
 
@@ -102,15 +112,18 @@ Manually via FTP access:
 
 == Frequently Asked Questions ==
 
+= Q. It Supports Classic Editor? =
+Yes, Now it supports classic editor. So, works with tinyMCE editor. But it not support live syntax highlighting.
+
 = Q. It is Run without Gutenberg? =
-No, it is Dependent on Gutenberg to Create Blocks, you have to install and activate Gutenberg, or Update your WordPress to 5.0 with built-in Block Editor.
+Yes, But if you want get live syntax highlighting, you have to install and activate Gutenberg, or Update your WordPress to latest version with built-in Block Editor.
 
 = Q. How to insert Code Block in Post? =
 A. Adding `Code Block` is same as inserting other Blocks.
 
 1. Log in to Admin Area of your WordPress website.
 2. Go to `Posts` -> `Add New`.
-3. Click The + button. it dispaly all available `Blocks` to Insert.
+3. Click The + button. it display all available `Blocks` to Insert.
 4. Find or Search `Code Block`.
 5. Click `Code Block` to insert in Post.
 
@@ -118,23 +131,38 @@ A. Adding `Code Block` is same as inserting other Blocks.
 A. Just select your `Language / Mode` from Select Dropdown.
 
 = Q. How to change color Theme of Code Block? =
-A. Just select your `theme` from Select Dropdown.
+A. Just select your `Theme` from Select Dropdown.
 
 = Q. How to enable or disable Line Numbers? =
-A. Just click toogle button to (On/Off) it.
+A. Just click toggle button to (On/Off) it.
+
+= Q. How to enable or disable Highlight Active Line? =
+A. Just click toggle button to (On/Off) it.
+
+= Q. How to enable or disable Warp Long Line? =
+A. Just click toggle button to (On/Off) it.
+
+= Q. How to enable Execute Button (Beta)? =
+A. Execute the code is currently in beta testing, if you want to enable it,
+1. Log in to Admin Area of your WordPress website.
+2. Go to `CodeMirror Blocks` Options Page.
+3. Scroll Down and Find `(Beta) Output Block`
+4. Check Yes `Enable Execution Button?` You can also set Execute Button Text.
+5. Now, Go to Editor and select any Code Block and Set `Editable on Frontend?` option to (On or Yes).
+6. Please Note that Code Block have Web Languages such as (HTML, CSS, or Javascript) Language/Mode, will only have Execute Button.
 
 = Q. Does this require any knowledge of HTML or CSS? =
-A. Absolutely not. This plugin can be configured with no knowledge of HTML or CSS, using an easy-to-use Block. But you have to know about code pasted on `Code Block`, to select proper Language/Mode.
+A. Absolutely not. This plugin can be configured with no knowledge of HTML or CSS, using an easy-to-use Block. But you have to know about code pasted on `CodeMirror Block 1.1`, to select proper Language/Mode.
 
 = Q. The last WordPress update is preventing me from editing my website that is using this plugin. Why is this? =
 A. This plugin can not cause such problem. More likely, the problem are related to the settings of the website. It could just be a cache, so please try to clear your website's cache (may be you using a caching plugin, or some web service such as the CloudFlare) and then the cache of your web browser. Also please try to re-login to the website, this too can help.
 
 == Screenshots ==
 
-1. How to Add CodeBlock.
-2. Paste `CODE` and Select apropriate Language to highlight `CODE`.
-3. Change Theme from 50+ different themes, with live Preview.
-4. Toggle Line Number with one click.
+1. How to Add CodeBlock (Block Editor).
+2. Paste `CODE` and Select appropriate Language to highlight `CODE` (Block Editor).
+3. Change Theme from 50+ different themes, with live Preview (Block Editor).
+4. Toggle Line Number with one click (Block Editor).
 
 == Other Notes ==
 
@@ -144,22 +172,30 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 
 == Changelog ==
 
+= 1.1.0 =
+* Update: Now with CodeMirror Block it is more optimized and have new features.
+* Add: Option Page for set default options. [Suggested](https://wordpress.org/support/topic/default-code-theme/)
+* Add: Support for Classic Editor [Suggested](https://wordpress.org/support/topic/shortcode-for-classic-editor/)
+* Optimized: Now, CodeMirror Block js and css files will only load if needed [Suggested](https://wordpress.org/support/topic/loading-codemirror-files-on-pages-only-when-needed/)
+* Beta Add: Button for Execute code only works on HTML, CSS and Javascript type code block [Suggested](https://wordpress.org/support/topic/how-to-add-a-button-for-executing-the-code-blocks-for-the-user/)
+* Fix: With Autoptimize it breaks some Javascript. [Suggested](https://wordpress.org/support/topic/works-great-excepting/)
+
 = 1.0.7 =
-* Update: Sugested [Code](https://wordpress.org/support/topic/enqueuing-admin-scripts/).
+* Update: Suggested [Code](https://wordpress.org/support/topic/enqueuing-admin-scripts/).
 
 = 1.0.6 =
-* Add: Added 2 Event Listners `wpcm_editor_loaded` and `wpcm_editors_loaded`
+* Add: Added 2 Event Listeners `wpcm_editor_loaded` and `wpcm_editors_loaded`
 
 = 1.0.5 =
 * Improve: Performance Improved.
-* Update: Sugested [Code](https://wordpress.org/support/topic/editors-2/#post-11274234).
+* Update: Suggested [Code](https://wordpress.org/support/topic/editors-2/#post-11274234).
 
 = 1.0.4 =
 * Change: minor changes.
 
 = 1.0.3 =
 * Improve: Performance.
-* Add: Some Sugested [Code](https://wordpress.org/support/topic/editors-2/).
+* Add: Some Suggested [Code](https://wordpress.org/support/topic/editors-2/).
 
 = 1.0.2 =
 * Change: minor changes.
@@ -174,5 +210,5 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 
 == Upgrade Notice ==
 
-= 1.0 =
-Created New Plugin no upgrade.
+= 1.1.0 =
+Added New Features Included.

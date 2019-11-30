@@ -1,8 +1,9 @@
 /* twentyfifteen theme hack */
 /* twentysixteen theme hack */
-.CodeMirror {
+.codeMirror-editor .CodeMirror {
   font-size: .8em;
   transition: inherit;
+  height: auto;
 }
 
 .CodeMirror pre.CodeMirror-line {
@@ -11,34 +12,38 @@
 
 /* twentyseventeen theme hack */
 .CodeMirror pre.CodeMirror-line {
-    background: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    margin-bottom: inherit;
-    max-width: 100%;
-    overflow: inherit;
-    padding: inherit;
-    padding-left: .5em;
+  background: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  margin-bottom: inherit;
+  max-width: 100%;
+  overflow: inherit;
+  padding: inherit;
+  padding-left: .5em;
 }
 
 .CodeMirror svg.loader {
   position: absolute;
   top: 42%;
   left: 42%;
-	max-width: 64px;
-	border-radius: 3px;
-	/* box-shadow: 2px 2px 5px #000; */
-	background: rgba(30, 30, 30, .7);
-	fill: none;
-	stroke: #222;
-	stroke-linecap: round;
+  max-width: 64px;
+  border-radius: 3px;
+  /* box-shadow: 2px 2px 5px #000; */
+  background: rgba(30, 30, 30, .7);
+  fill: none;
+  stroke: #222;
+  stroke-linecap: round;
   stroke-width: 8%;
 }
 
 use {
-	stroke: #fff;
-	animation: a 2s linear infinite
+  stroke: #fff;
+  animation: a 2s linear infinite
 }
 
-@keyframes a { to { stroke-dashoffset: 0px } }
+@keyframes a {
+  to {
+    stroke-dashoffset: 0px
+  }
+}
