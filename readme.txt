@@ -1,6 +1,6 @@
 === CodeMirror Blocks ===
 Contributors: vickyagravat
-Tags: codemirror, code block, syntax highlighter, code highlighter, php, html, css, javascript, python, java, jsx, react, snippet, hightlight, syntax highlighting
+Tags: codemirror, code block, syntax highlighter, code highlighter, php, html, css, javascript, python, java, jsx, react, snippet, highlight, syntax highlighting
 Requires at least: 4.8
 Donate link: https://paypal.me/VikeshAgravat
 Tested up to: 5.3
@@ -17,7 +17,7 @@ It supports 100+ Programming, Scripting and MarkUp Language, with 56 Different T
 
 The Code Block is dependent on a [CodeMirror](https://codemirror.net/) library.
 
-Formated Code Block is like (syntax highlighting feature) that displays source code, in different colors and fonts according to the category of terms. It is one strategy to improve the readability and context of the text; especially for code that spans several pages. The reader can easily ignore large sections of comments or code, depending on what they are looking for.
+Formatted Code Block is like (syntax highlighting feature) that displays source code, in different colors and fonts according to the category of terms. It is one strategy to improve the readability and context of the text; especially for code that spans several pages. The reader can easily ignore large sections of comments or code, depending on what they are looking for.
 
 This plugin is just plug and play, no tedious configurations or hacks, just install, activate and start using block inserter.
 
@@ -29,7 +29,7 @@ This plugin is just plug and play, no tedious configurations or hacks, just inst
 * (New) Highlight Active Line (now available on CodeMirror Block 1.1)
 * (New) CodeMirror Block 1.1 now support Block align (Wide Width, Full Width) if your theme Supports.
 * (New) Classic Editor Support (Partial)
-* (New) (Beta) Web editor (Execution of HTML, CSS Javascript block) With CodeMirror Block 1.1
+* (New) (Beta) Web editor (Execution of HTML, CSS JavaScript block) With CodeMirror Block 1.1
 
 **Features**
 
@@ -172,13 +172,19 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 
 == Changelog ==
 
+= 1.1.2 =
+* Fix: '%' issue [HTML code](https://wordpress.org/support/topic/default-code-theme/)
+
+= 1.1.1 =
+* Fix: Typo on Settings Page.
+
 = 1.1.0 =
 * Update: Now with CodeMirror Block it is more optimized and have new features.
 * Add: Option Page for set default options. [Suggested](https://wordpress.org/support/topic/default-code-theme/)
 * Add: Support for Classic Editor [Suggested](https://wordpress.org/support/topic/shortcode-for-classic-editor/)
 * Optimized: Now, CodeMirror Block js and css files will only load if needed [Suggested](https://wordpress.org/support/topic/loading-codemirror-files-on-pages-only-when-needed/)
-* Beta Add: Button for Execute code only works on HTML, CSS and Javascript type code block [Suggested](https://wordpress.org/support/topic/how-to-add-a-button-for-executing-the-code-blocks-for-the-user/)
-* Fix: With Autoptimize it breaks some Javascript. [Suggested](https://wordpress.org/support/topic/works-great-excepting/)
+* Beta Add: Button for Execute code only works on HTML, CSS and JavaScript type code block [Suggested](https://wordpress.org/support/topic/how-to-add-a-button-for-executing-the-code-blocks-for-the-user/)
+* Fix: With Autoptimize it breaks some JavaScript. [Suggested](https://wordpress.org/support/topic/works-great-excepting/)
 
 = 1.0.7 =
 * Update: Suggested [Code](https://wordpress.org/support/topic/enqueuing-admin-scripts/).
@@ -203,7 +209,7 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 = 1.0.1 =
 * Fix: [Rust language](https://wordpress.org/support/topic/rust-language/) issue.
 * Fix: simple mode addon for (Docerfile, factor)
-* Fix: htmlembded mode addon for (Embedded Javascript, Embedded Ruby, ASP.NET, Java Server Pages)
+* Fix: htmlembded mode addon for (Embedded JavaScript, Embedded Ruby, ASP.NET, Java Server Pages)
 
 = 1.0 =
 * Created A New Plugin.
