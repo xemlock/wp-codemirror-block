@@ -49,7 +49,7 @@ class CodeMirror_Blocks {
      * @var const CODEMIRROR_VERSION
      *
      */
-    const CODEMIRROR_VERSION = '5.40.2';
+    const CODEMIRROR_VERSION = '5.40.3';
 
     /**
      * Constructor.
@@ -113,15 +113,16 @@ class CodeMirror_Blocks {
             register_block_type( 'codemirror-blocks/code-block', array(
                 'editor_script' => 'codemirror-blocks-blocks',
                 'render_callback' => array( $this, 'render_code_block'),
+                // no need to set default attributes
                 'attributes' => [
-                    'mode' => [
-                        'type' => 'string',
-                        'default' => 'htmlmixed'
-                    ],
-                    'mime' => [
-                        'type' => 'string',
-                        'default' => 'text/html'
-                    ],
+                    // 'mode' => [
+                    //     'type' => 'string',
+                    //     'default' => 'htmlmixed'
+                    // ],
+                    // 'mime' => [
+                    //     'type' => 'string',
+                    //     'default' => 'text/html'
+                    // ],
                     // 'lineNumbers' => [
                     //     'type' => 'boolean',
 			        //     'default' => false
@@ -173,10 +174,27 @@ class CodeMirror_Blocks {
         $editor_option = Settings::get_options();
 
         $attributes = wp_parse_args($attributes, $editor_option['editor'] );
+        $modes = Settings::modes();
+
+        $attributes['language'] = '';
+        foreach ($modes as $key => $mode) {
+            if($mode['mime'] == $attributes['mime']) {
+                // $attributes['language'] = $mode['label'];
+
+                // addred fallback if fileName is not available.
+                $attributes['language'] = preg_replace('/ \([\s\S]*?\)/', '', $mode['label']);
+                $attributes['modeName'] = $mode['name'];
+            break;
+            }
+        }
 
         if( !empty( $content ) ) {
 
             $is_new_block = \strpos($content, '<pre>');
+
+            // add extra %, to fix issue cause by sprintf, which escape single '%' symbol.
+            $content = \str_ireplace('%', '%%', $content);
+
             if( !empty($is_new_block) ) {
                 // add class and data attribute.
                 $content = \str_ireplace('<pre', '<pre class="CodeMirror" data-setting="%1$s"', $content);
@@ -213,26 +231,19 @@ class CodeMirror_Blocks {
 
         $plugin_version = self::get_version();
 
-          $suffix = self::$suffix;
+        $suffix = self::$suffix;
 
         wp_enqueue_script( 'codemirror', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/lib/codemirror.min.js', array(), self::CODEMIRROR_VERSION, true );
 
         wp_enqueue_style( 'codemirror', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/lib/codemirror.min.css', array(), self::CODEMIRROR_VERSION );
 
-        wp_enqueue_script( 'codemirror-autoload-assets', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'assets/js/autoLoadAssets' . $suffix . '.js', array(), self::CODEMIRROR_VERSION, true );
+        $version = filemtime(plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ). '/assets/js/autoLoadAssets' . $suffix . '.js');
+        wp_enqueue_script( 'codemirror-autoload-assets', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'assets/js/autoLoadAssets' . $suffix . '.js', array(), $version, true );
 
         wp_add_inline_script(
             'codemirror-autoload-assets',
             self::inline_script('admin'),
             'before'
-        );
-
-        wp_enqueue_script(
-            'codemirror-blocks-editor-init', // Handle.
-            plugins_url( '/assets/js/init.editor' . $suffix . '.js',  CODEMIRROR_BLOCKS_PLUGIN ), // Block.build.js: We register the block here. Built with Webpack.
-            array( 'codemirror', 'codemirror-autoload-assets' ),  // Dependencies, defined above.
-            $plugin_version,
-            true // Enqueue the script in the footer.
         );
 
         $build_version = filemtime(plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ). '/assets/blocks/blocks.build.js');
@@ -266,6 +277,7 @@ class CodeMirror_Blocks {
      * @since 1.0.0
      */
     public function wp_enqueue_scripts() {
+
         $content = get_post();
 
         if( empty($content) ) {
@@ -273,17 +285,29 @@ class CodeMirror_Blocks {
             return;
         }
 
+        $suffix = self::$suffix;
+
         $regex = "#wp-block-codemirror-blocks#";
         preg_match( $regex, $content->post_content, $matches );
 
-        if(!empty($matches) && (is_single() || is_page()) ) {
+        if( is_home() || is_front_page() ) {
+            $enable_on_home = get_option( 'wpcm_setting_misc_enableOnHome');
+            if($enable_on_home == 'no')
+                $matches = false;
+        }
+        // if( is_single() || is_page() ) {
+        //     // $matches = false;
+        //     // return;
+        // }
 
-            $plugin_version = self::get_version();
+        if(!empty($matches) ) {
 
-            $suffix = self::$suffix;
+            // $plugin_version = self::get_version();
 
             // it is necessary to load codemirror first.
             wp_enqueue_script( 'codemirror', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/lib/codemirror.min.js', array(), self::CODEMIRROR_VERSION, true );
+
+            wp_enqueue_style( 'codemirror', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'vendor/codemirror/lib/codemirror.min.css', array(), self::CODEMIRROR_VERSION );
 
             $version = filemtime(plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ). '/assets/js/autoLoadAssets' . $suffix . '.js');
             wp_enqueue_script( 'codemirror-autoload-assets', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'assets/js/autoLoadAssets' . $suffix . '.js', array('jquery'), $version, true );
@@ -296,6 +320,16 @@ class CodeMirror_Blocks {
 
             // wp_enqueue_script( 'codemirror-init', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'assets/js/init' . $suffix . '.js', array('jquery', 'codemirror-autoload-assets'), self::CODEMIRROR_VERSION.'.1.1', true );
         }
+
+        // Styles. only use for editor
+        $css_version = filemtime(plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ). '/assets/blocks/blocks.style.build' . $suffix . '.css');
+        wp_enqueue_style(
+            'codemirror-blocks-', // Handle.
+            plugins_url( 'assets/blocks/blocks.style.build' . $suffix . '.css',  CODEMIRROR_BLOCKS_PLUGIN ), // Block editor CSS.
+            array(), // Dependency to include the CSS after it.
+            $css_version
+        );
+
     }
 
     /**
@@ -318,23 +352,25 @@ class CodeMirror_Blocks {
         if($view == 'admin') {
             $wpcm['themes'] = Settings::themes();
             $wpcm['defaults'] = $options['editor'];
+            $wpcm['options']['panel'] = $options['panel'];
             $wpcm['view'] = 'admin';
         }
         if($view == 'frontend') {
-            $wpcm['options']['output'] = $options['output'];
+            // $wpcm['options']['output'] = $options['output'];
+            $wpcm['options']['panel'] = $options['panel'];
 
             // for lazy loading
-            $wpcm['assets'][] = [
-                'dir' => plugins_url("", CODEMIRROR_BLOCKS_PLUGIN) . '/vendor/codemirror/lib/',
-                // 'js'  => 'codemirror.min.js',
-                'css' => 'codemirror.min.css',
-                'async' => true
-            ];
-            $version = filemtime(plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ). '/assets/js/init' . $suffix . '.js');
+            // $wpcm['assets'][] = [
+            //     'dir' => plugins_url("", CODEMIRROR_BLOCKS_PLUGIN) . '/vendor/codemirror/lib/',
+            //     // 'js'  => 'codemirror.min.js',
+            //     // 'css' => 'codemirror.min.css',
+            //     'async' => true
+            // ];
+            $js_version = filemtime(plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ). '/assets/js/init' . $suffix . '.js');
             $wpcm['assets'][] = [
                 'dir' => plugins_url("", CODEMIRROR_BLOCKS_PLUGIN) . '/assets/',
-                'js'  => 'js/init' . $suffix . '.js?v='.$version,
-                'css' => 'blocks/blocks.style.build' . $suffix . '.css',
+                'js'  => 'js/init' . $suffix . '.js?v='.$js_version,
+                // 'css' => 'blocks/blocks.style.build' . $suffix . '.css?v='.$css_version,
                 'differ' => true
             ];
             $wpcm['view'] = 'public';

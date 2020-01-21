@@ -4,84 +4,76 @@ if ('undefined' === typeof window.wpcm.editors) {
 (function ($, wpcm, CodeMirror) {
   'use strict';
 
+  wpcm.executable_output_mode = ['htmlmixed', 'javascript', 'xml', 'jsx', 'vue'];
+
   // var wpcm_editor_loaded = new Event('wpcm_editor_loaded');
   wpcm.frontEndInitialization = function () {
     var codeBlocks = document.querySelectorAll('.code-block > pre.CodeMirror');
 
+    wpcm.addNotice();
+
     for (var i = 0; i < codeBlocks.length; i++) {
 
       var block = codeBlocks[i],
-        setting = JSON.parse(block.dataset.setting),
-
+        options = JSON.parse(block.dataset.setting),
         code = codeBlocks[i].textContent,
         id = 'code-block-' + i;
 
+      codeBlocks[i].parentNode.setAttribute('id', i);
+
+      // codeBlocks.id = i;
       block.setAttribute('id', id);
 
-      wpcm.codeMirrorInit(id, code, setting);
+      wpcm.codeMirrorInit(id, code, options, i);
     }
 
     // this event triggers with all editor instance
     $(document.body).trigger('wpcm_editors_loaded');
   };
 
-  wpcm.codeMirrorInit = function (id, code, setting) {
+  wpcm.codeMirrorInit = function (id, code, options) {
     var el = document.getElementById(id);
 
     el.style = "display: none";
 
     var editor = CodeMirror(el.parentNode, {
       // value: code,
-      lineNumbers: setting.lineNumbers,
-      lineWrapping: setting.lineWrapping,
-      readOnly: setting.readOnly,
-      scrollbarStyle: "simple"
+      lineNumbers: options.lineNumbers,
+      lineWrapping: options.lineWrapping,
+      readOnly: options.readOnly,
+      scrollbarStyle: "simple",
+			firstLineNumber: options.firstLineNumber ? Math.abs(options.firstLineNumber) : 1,
     });
 
-    CodeMirror.autoLoadAddon(editor, setting);
-    CodeMirror.autoLoadTheme(editor, setting.theme);
+    CodeMirror.autoLoadTheme(editor, options.theme);
 
     editor.setValue(code);
-    if (setting.disableCopy) {
+    if (options.disableCopy) {
       editor.setOption("readOnly", "nocursor");
     }
     // editor.setOption("autoRefresh", 1000);
 
-    editor.setOption("mode", setting.mime);
-    editor.setOption("theme", setting.theme);
-    if (setting.styleActiveLine) {
+    editor.setOption("mode", options.mime);
+    editor.setOption("theme", options.theme);
+
+    if (options.styleActiveLine) {
       editor.on('blur', (e) => {
         editor.setOption("styleActiveLine", false);
       });
       editor.on('focus', (e) => {
-        editor.setOption("styleActiveLine", setting.styleActiveLine);
+        editor.setOption("styleActiveLine", options.styleActiveLine);
       });
     }
 
-    // setting.fold = true;
-    // console.log(setting.fold);
-    // if (setting.fold) {
-    // 	// editor.on('focus', (e) => {
-    // 		setTimeout(() => {
-    // 			editor.setOption("gutters", ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]);
-    // 			editor.setOption("foldGutter", true);
-    // 			editor.foldCode(CodeMirror.Pos(6, 0));
-    // 		}, 1000);
-    // 	// })
-    // }
+    CodeMirror.autoLoadMode(editor, options.mode);
 
-    CodeMirror.autoLoadMode(editor, setting.mode);
+    if (wpcm.options.panel.controlPanel) {
+      editor.getWrapperElement().querySelector('.CodeMirror-simplescroll-vertical').classList.add('adjest-top');
+      wpcm.addPanel(editor, options);
+    }
 
-    if (!setting.readOnly) {
-      wpcm.renderTextarea(el, code, editor);
-
-      var render_output_mode = ['htmlembedded', 'htmlmixed', 'css', 'javascript', 'sass', 'xml', 'jsx', 'vue'];
-
-      if (window.wpcm.options.output.button) {
-        if (render_output_mode.includes(setting.mode)) {
-          wpcm.renderOutputBlock(el);
-        }
-      }
+    if (wpcm.executable_output_mode.includes(options.mode)) {
+      wpcm.renderOutputBlock(el);
     }
 
     wpcm.editors.push(editor);
@@ -96,22 +88,100 @@ if ('undefined' === typeof window.wpcm.editors) {
 
   }
 
-  wpcm.renderTextarea = function (el, code, editor) {
-    var textarea = document.createElement('textarea');
-    textarea.className = 'editor';
-    textarea.style = "display: none";
-    textarea.value = code;
+  wpcm.addNotice = function () {
+    var div = document.createElement('div');
+    div.className = 'CodeMirror-notice';
+    document.body.appendChild(div);
+  }
 
-    el.parentNode.append(textarea);
+  wpcm.showNotice = function (notice, style) {
+    var div = document.querySelector('.CodeMirror-notice');
+    div.innerHTML = notice;
+    div.setAttribute('style', ['bottom: 15px;'].join(''));
 
-    editor.on('blur', (e) => {
-      textarea.value = editor.getValue();
-    });
+    setTimeout(() => {
+      div.removeAttribute('style');
+    }, 3000);
+  }
+
+  wpcm.addPanel = function (editor, options) {
+    var panel = document.createElement("div"),
+      info = document.createElement("div"),
+      controls = document.createElement("div"),
+
+      language = document.createElement("span"),
+      wrapper = editor.getWrapperElement();
+
+    panel.className = "CodeMirror-panel";
+    info.className = "info-panel";
+
+    language.textContent = options.fileName ? options.fileName : options.language;
+
+    controls.className = 'control-panel';
+
+    language.className = 'language ' + options.language.toLowerCase();
+
+    info.appendChild(language);
+
+    if (window.wpcm.options.panel.runButton) {
+      if (wpcm.executable_output_mode.includes(options.mode)) {
+        var run = document.createElement("span"),
+          runButton = document.createElement("b");
+        run.classList = 'tool';
+        run.setAttribute('data-tip', 'Execute Code');
+        // run.setAttribute('title', 'Execute Code');
+
+        runButton.className = 'run-code execute-code';
+        run.onclick = wpcm.executeCode;
+        run.appendChild(runButton);
+
+        controls.appendChild(run);
+      }
+    }
+
+    if (window.wpcm.options.panel.fullScreenButton) {
+      var fullScreen = document.createElement("span"),
+        fullScreenButton = document.createElement("b");
+
+      fullScreen.classList = 'tool';
+      fullScreen.setAttribute('data-tip', 'Full Screen');
+      // fullScreen.setAttribute('title', 'Full Screen');
+
+      fullScreenButton.className = 'fullscreen maximize';
+      fullScreenButton.onclick = wpcm.setFullScreen;
+      fullScreen.appendChild(fullScreenButton);
+      controls.appendChild(fullScreen);
+    }
+
+    if (window.wpcm.options.panel.copyButton) {
+      if (!options.disableCopy) {
+        var copy = document.createElement("span"),
+          copyButton = document.createElement("b");
+
+        copy.classList = 'tool';
+        copy.setAttribute('data-tip', 'Copy Code');
+        // copy.setAttribute('title', 'Copy Code');
+
+        copyButton.className = 'copy';
+        copyButton.onclick = wpcm.copyToClipboard;
+        copy.appendChild(copyButton);
+
+        controls.appendChild(copy);
+      }
+    }
+
+    info.appendChild(controls);
+    panel.appendChild(info);
+
+    wrapper.insertBefore(panel, wrapper.firstChild);
   }
 
   wpcm.executeCode = function (e) {
-    var code_block = this.parentElement,
-      code_editor = code_block.querySelector('textarea.editor'),
+    var el = this,
+      code_block = el.closest('.code-block'),
+      editorId = code_block.id,
+      editor = wpcm.editors[editorId],
+      editorContent = editor.getValue(),
       output_frame = code_block.querySelector('.output-block-frame'),
       iframe = null;
 
@@ -123,19 +193,29 @@ if ('undefined' === typeof window.wpcm.editors) {
           ? output_frame.contentDocument.document : output_frame.contentDocument);
 
     iframe.document.open();
-    iframe.document.write(code_editor.value);
+    iframe.document.write(editorContent);
     iframe.document.close();
+
+    $('html, body').animate({
+      scrollTop: $(output_frame).offset().top - 80
+    }, 600);
   };
 
+  // to set height of output frame after load
   wpcm.styleOutputBlock = function (e) {
     var output_frame = e.target,
       iframe = null,
       newHeight = 0;
 
+    if (output_frame.classList.contains('first-load')) {
+      output_frame.classList.remove('first-load');
+      return;
+    }
+
     iframe = (output_frame.contentWindow)
-    ? output_frame.contentWindow : (
-      output_frame.contentDocument.document
-        ? output_frame.contentDocument.document : output_frame.contentDocument);
+      ? output_frame.contentWindow : (
+        output_frame.contentDocument.document
+          ? output_frame.contentDocument.document : output_frame.contentDocument);
 
     output_frame.setAttribute('style', 'height:200px');
     if (iframe.document.body) {
@@ -150,21 +230,70 @@ if ('undefined' === typeof window.wpcm.editors) {
   }
 
   wpcm.renderOutputBlock = function (el) {
-    var button = document.createElement('button'),
-      iframe = document.createElement('iframe');
-
-    button.className = 'execute-code';
-    button.onclick = wpcm.executeCode;
-    button.textContent = window.wpcm.options.output.button_text || 'Run';
-
-    iframe.className = 'output-block-frame';
+    var iframe = document.createElement('iframe');
+    iframe.classList.add('output-block-frame', 'first-load');
     iframe.onload = wpcm.styleOutputBlock;
     iframe.style.height = '100px';
-
     iframe.src = "";
-
-    el.parentNode.append(button);
     el.parentNode.append(iframe);
+  }
+
+  wpcm.setFullScreen = function () {
+    var el = this,
+      code_block = el.closest('.code-block'),
+      editorId = code_block.id,
+      editor = wpcm.editors[editorId],
+      adminBar = document.getElementById('wpadminbar');
+
+    if (el.classList.contains("maximize")) {
+      el.classList.remove('maximize');
+      el.classList.add('restore');
+      el.closest('.CodeMirror').classList.add('CodeMirror-fullscreen');
+
+      // add top position to fix 'wp-admin bar'
+      if (typeof (adminBar) != 'undefined' && adminBar != null) {
+        el.closest('.CodeMirror').classList.add('adjest-top');
+      }
+
+      document.documentElement.style.overflow = "hidden";
+    } else {
+      el.classList.remove('restore');
+      el.classList.add('maximize');
+      el.closest('.CodeMirror').classList.remove('CodeMirror-fullscreen', 'adjest-top');
+      document.documentElement.style.overflow = "";
+    }
+    editor.refresh();
+  }
+
+  wpcm.copyToClipboard = function () {
+    var el = this,
+      code_block = el.closest('.code-block'),
+      editorId = code_block.id,
+
+      content = wpcm.editors[editorId].getValue();
+
+    if (window.clipboardData) { // For Internet Explorer
+      // console.log('clipbord data');
+      window.clipboardData.setData("Text", content);
+    } else {
+      var textarea = document.createElement('textarea');
+
+      textarea.className = 'CodeMirror-ClipBoard';
+      document.body.appendChild(textarea);
+      textarea.appendChild(document.createTextNode(content));
+      textarea.select();
+      try {
+        // Now that we've selected the anchor text, execute the copy command
+        var successful = document.execCommand('copy');
+        var notice = successful ? 'Copied to cliboard' : 'Can not copied';
+      } catch (err) {
+        notice = 'Oops, unable to copy';
+      }
+      // console.log(notice);
+      wpcm.showNotice(notice, '');
+      textarea.remove();
+    }
+
   }
 
 })(window.jQuery, window.wpcm, window.CodeMirror);
@@ -172,11 +301,11 @@ if ('undefined' === typeof window.wpcm.editors) {
 // Front End Initialization
 wpcm.frontEndInitialization();
 
-jQuery(document).ready( function () {
+jQuery(document).ready(function () {
   // to refresh the editor on some browser
   setTimeout(() => {
     for (var i = 0; i < wpcm.editors.length; i++) {
       wpcm.editors[i].refresh();
     }
-  }, 1000);
+  }, 1500);
 });

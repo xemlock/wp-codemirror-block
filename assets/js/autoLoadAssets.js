@@ -42,6 +42,7 @@ function wp_enqueue_style(asset) {
     link.onload = loadSuccess;
 
     link.rel = 'stylesheet';
+    // link.rel = 'preload';
 
     // document.currentScript.parentNode.insertBefore(link, document.currentScript);
     document.head.appendChild(link);
@@ -122,7 +123,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     };
 
-
     // added custom required functions
     CodeMirror.loaderSVG = function (element, link) {
       var svgns = "http://www.w3.org/2000/svg",
@@ -147,7 +147,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         element.querySelector('svg').remove();
       });
     }
-
 
     CodeMirror.enqueueStyle = function (fileName, dirName = 'theme') {
       var _id = 'CodeMirror-' + dirName + '-' + fileName + '-css',
@@ -195,48 +194,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return script;
       }
       return;
-    }
-
-    CodeMirror.autoLoadAddon = function (editor, setting) {
-      // CodeMirror.enqueueScript(mode, '/mode/'+mode);
-      // console.log(mode);
-      var addon = [],
-        mode = setting.mode;
-
-      if (setting.styleActiveLine) {
-        addon.push({
-          dirName: 'selection',
-          fileName: 'active-line'
-        });
-      }
-
-      if (mode.search('embed') >= 0) {
-        addon.push({
-          dirName: 'mode',
-          fileName: 'multiplex'
-        });
-      }
-      if (mode == 'rust' || mode == 'dockerfile' || mode == 'factor') {
-        addon.push({
-          dirName: 'mode',
-          fileName: 'simple'
-        });
-      }
-      if (mode == 'django' || mode == 'gfm') {
-        addon.push({
-          dirName: 'mode',
-          fileName: 'overlay'
-        });
-
-        CodeMirror.requireMode('htmlmixed', function () {
-          editor.setOption("mode", editor.getOption("mode"));
-        });
-      }
-      if (addon) {
-        for (var i = 0; i < addon.length; i++) {
-          CodeMirror.enqueueScript(addon[i].fileName, 'addon/' + addon[i].dirName);
-        }
-      }
     }
 
     CodeMirror.autoLoadTheme = function (editor, theme) {
