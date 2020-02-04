@@ -318,7 +318,8 @@ class CodeMirror_Blocks {
                 'before'
             );
 
-            // wp_enqueue_script( 'codemirror-init', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'assets/js/init' . $suffix . '.js', array('jquery', 'codemirror-autoload-assets'), self::CODEMIRROR_VERSION.'.1.1', true );
+            $init_version = filemtime(plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ). '/assets/js/init' . $suffix . '.js');
+            wp_enqueue_script( 'codemirror-init', plugin_dir_url( CODEMIRROR_BLOCKS_PLUGIN ) . 'assets/js/init' . $suffix . '.js', array('jquery', 'codemirror-autoload-assets'), $init_version, true );
         }
 
         // Styles. only use for editor
@@ -352,12 +353,13 @@ class CodeMirror_Blocks {
         if($view == 'admin') {
             $wpcm['themes'] = Settings::themes();
             $wpcm['defaults'] = $options['editor'];
-            $wpcm['options']['panel'] = $options['panel'];
+            $wpcm['panelOptions'] = $options['panel'];
             $wpcm['view'] = 'admin';
         }
         if($view == 'frontend') {
             // $wpcm['options']['output'] = $options['output'];
-            $wpcm['options']['panel'] = $options['panel'];
+            // $wpcm['options']['panel'] = $options['panel'];
+            $wpcm['panelOptions'] = $options['panel'];
 
             // for lazy loading
             // $wpcm['assets'][] = [
@@ -366,13 +368,13 @@ class CodeMirror_Blocks {
             //     // 'css' => 'codemirror.min.css',
             //     'async' => true
             // ];
-            $js_version = filemtime(plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ). '/assets/js/init' . $suffix . '.js');
-            $wpcm['assets'][] = [
-                'dir' => plugins_url("", CODEMIRROR_BLOCKS_PLUGIN) . '/assets/',
-                'js'  => 'js/init' . $suffix . '.js?v='.$js_version,
-                // 'css' => 'blocks/blocks.style.build' . $suffix . '.css?v='.$css_version,
-                'differ' => true
-            ];
+            // $js_version = filemtime(plugin_dir_path( CODEMIRROR_BLOCKS_PLUGIN ). '/assets/js/init' . $suffix . '.js');
+            // $wpcm['assets'][] = [
+            //     'dir' => plugins_url("", CODEMIRROR_BLOCKS_PLUGIN) . '/assets/',
+            //     'js'  => 'js/init' . $suffix . '.js?v='.$js_version,
+            //     // 'css' => 'blocks/blocks.style.build' . $suffix . '.css?v='.$css_version,
+            //     'differ' => true
+            // ];
             $wpcm['view'] = 'public';
         }
 

@@ -106,6 +106,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       var file = CodeMirror.modeURL.replace(/%N/g, mode);
       var script = document.createElement("script");
       script.src = file;
+      console.log('required mode', file);
       var others = document.getElementsByTagName("script")[0];
       var list = loading[mode] = [cont];
       CodeMirror.on(script, "load", function () {

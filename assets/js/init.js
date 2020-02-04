@@ -4,7 +4,7 @@ if ('undefined' === typeof window.wpcm.editors) {
 (function ($, wpcm, CodeMirror) {
   'use strict';
 
-  wpcm.executable_output_mode = ['htmlmixed', 'javascript', 'xml', 'jsx', 'vue'];
+  wpcm.executable_modes = ['htmlmixed', 'javascript', 'xml', 'jsx', 'vue'];
 
   // var wpcm_editor_loaded = new Event('wpcm_editor_loaded');
   wpcm.frontEndInitialization = function () {
@@ -14,8 +14,11 @@ if ('undefined' === typeof window.wpcm.editors) {
 
     for (var i = 0; i < codeBlocks.length; i++) {
 
-      var block = codeBlocks[i],
-        options = JSON.parse(block.dataset.setting),
+      var block = codeBlocks[i];
+      if (!block.dataset.setting) {
+        continue;
+      }
+      var options = JSON.parse(block.dataset.setting),
         code = codeBlocks[i].textContent,
         id = 'code-block-' + i;
 
@@ -67,12 +70,12 @@ if ('undefined' === typeof window.wpcm.editors) {
 
     CodeMirror.autoLoadMode(editor, options.mode);
 
-    if (wpcm.options.panel.controlPanel) {
+    if (wpcm.panelOptions.showPanel || options.showPanel) {
       editor.getWrapperElement().querySelector('.CodeMirror-simplescroll-vertical').classList.add('adjest-top');
       wpcm.addPanel(editor, options);
     }
 
-    if (wpcm.executable_output_mode.includes(options.mode)) {
+    if (wpcm.executable_modes.includes(options.mode)) {
       wpcm.renderOutputBlock(el);
     }
 
@@ -115,16 +118,20 @@ if ('undefined' === typeof window.wpcm.editors) {
     panel.className = "CodeMirror-panel";
     info.className = "info-panel";
 
-    language.textContent = options.fileName ? options.fileName : options.language;
-
     controls.className = 'control-panel';
 
-    language.className = 'language ' + options.language.toLowerCase();
-
+    if (options.languageLabel == 'no') {
+    } else if (window.wpcm.panelOptions.languageLabel == 'language' || (options.languageLabel == 'language')) {
+      language.textContent = options.language;
+      language.className = 'language ' + options.language.toLowerCase();
+    } else if ( window.wpcm.panelOptions.languageLabel == 'file' || options.languageLabel == 'file') {
+      language.textContent = options.fileName ? options.fileName : options.language;
+      language.className = 'language ' + options.language.toLowerCase();
+    }
     info.appendChild(language);
 
-    if (window.wpcm.options.panel.runButton) {
-      if (wpcm.executable_output_mode.includes(options.mode)) {
+    if (window.wpcm.panelOptions.runButton) {
+      if (wpcm.executable_modes.includes(options.mode)) {
         var run = document.createElement("span"),
           runButton = document.createElement("b");
         run.classList = 'tool';
@@ -134,12 +141,11 @@ if ('undefined' === typeof window.wpcm.editors) {
         runButton.className = 'run-code execute-code';
         run.onclick = wpcm.executeCode;
         run.appendChild(runButton);
-
         controls.appendChild(run);
       }
     }
 
-    if (window.wpcm.options.panel.fullScreenButton) {
+    if (window.wpcm.panelOptions.fullScreenButton) {
       var fullScreen = document.createElement("span"),
         fullScreenButton = document.createElement("b");
 
@@ -153,7 +159,7 @@ if ('undefined' === typeof window.wpcm.editors) {
       controls.appendChild(fullScreen);
     }
 
-    if (window.wpcm.options.panel.copyButton) {
+    if (window.wpcm.panelOptions.copyButton) {
       if (!options.disableCopy) {
         var copy = document.createElement("span"),
           copyButton = document.createElement("b");

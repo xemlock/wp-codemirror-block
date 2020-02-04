@@ -258,7 +258,7 @@ class Settings {
 			),
 			array(
 				'label' => 'Enable Control Panel?',
-				'id' => 'controlPanel',
+				'id' => 'showPanel',
                 'type' => 'radio',
                 'options' => array(
                     'no' => 'No',
@@ -267,6 +267,21 @@ class Settings {
 				'section' => 'panel',
                 'description' => 'It will display Control Panel on top of the Code Block on front end.',
                 'default' => 'yes'
+			),
+			array(
+				'label' => 'Language Label',
+				'id' => 'languageLabel',
+                'type' => 'select',
+                'placeholder' => 'Select Language label',
+                'options' => array(
+                    [ 'value' => 'no' , 'label' => 'No Label'],
+                    [ 'value' => 'language' , 'label' => 'Language Name'],
+                    [ 'value' => 'file' , 'label' => 'File Name'],
+                ),
+
+				'section' => 'panel',
+                'description' => 'It will display Language label on Control Panel.',
+                'default' => 'language'
 			),
 			array(
 				'label' => 'Enable Execute Button?',
@@ -744,7 +759,7 @@ class Settings {
     public static function themes() {
 
         $themes = [
-            ["value" => "default", "label" => "Default"],
+            ["value" => "default", "label" => "Codemirror Default"],
             ["value" => "3024-day", "label" => "3024-day"],
             ["value" => "3024-night", "label" => "3024-night"],
             ["value" => "abcdef", "label" => "Abcdef"],
