@@ -3,8 +3,8 @@ Contributors: vickyagravat
 Tags: codemirror, code block, syntax highlighter, code highlighter, editor, php, html, css, javascript, python, java, jsx, react, snippet, highlight, syntax highlighting
 Requires at least: 5.0
 Donate link: https://paypal.me/VikeshAgravat
-Tested up to: 5.3
-Stable tag: 1.2.0
+Tested up to: 5.5
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -174,6 +174,16 @@ A. This plugin can not cause such problem. More likely, the problem are related 
 * This Plugin use CodeMirror library to highlight `Code Blocks`. [CodeMirror](https://codemirror.net/) is an open-source project shared under the [MIT license](https://codemirror.net/LICENSE).
 
 == Changelog ==
+
+= 1.2.3 =
+* Fix: [SVG CSS issue.](https://wordpress.org/support/topic/svg-css-issue/)
+* Fix: [Unwanted animation in html element use](https://wordpress.org/support/topic/unwanted-animation-in-html-element-use/)
+
+= 1.2.2 =
+* Fix: [Undo (Ctrl+Z) command makes the block unusable.](https://wordpress.org/support/topic/undo-ctrlz-command-makes-the-block-unusable/)
+
+= 1.2.1 =
+* Fix: [Problem with "First Line Number" while trying re-editing the post](https://wordpress.org/support/topic/problem-with-first-line-number-while-trying-re-editing-the-post/)
 
 = 1.2.0 =
 * Added: New Panel Added on top of Code Block.
