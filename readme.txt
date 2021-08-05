@@ -1,9 +1,9 @@
 === CodeMirror Blocks ===
 Contributors: vickyagravat
-Tags: codemirror, code block, syntax highlighter, code highlighter, editor, php, html, css, javascript, python, java, jsx, react, snippet, highlight, syntax highlighting
+Tags: codemirror, code block, syntax highlighter, code highlighter, editor, javascript, python, java, jsx, react, php, html, css, snippet, highlight, syntax highlighting
 Requires at least: 5.0
 Donate link: https://paypal.me/VikeshAgravat
-Tested up to: 5.6
+Tested up to: 5.8
 Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
